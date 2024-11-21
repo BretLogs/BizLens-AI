@@ -60,36 +60,33 @@ def get_ai_response(text):
 
 @app.route('/process-image', methods=['POST'])
 def process_image():
-    """
-    API endpoint to process the uploaded image.
-    """
-    if 'image' not in request.files:
-        return jsonify({"error": "No image uploaded"}), 400
-
-    image_file = request.files['image']
-    image_path = "uploaded_image.jpg"
-    image_file.save(image_path)
-
     try:
-        # Extract detected texts
-        detected_texts = get_detected_texts(image_path)
+        # Check if image file exists
+        image_file = request.files.get('image')
+        if not image_file:
+            return jsonify({'error': 'No image file received'}), 400
+
+        # Save the image
+        image_path = "uploaded_image.jpg"
+        image_file.save(image_path)
+
+        # Process the image
+        ocr_reader = OCRReader(image_path)
+        detected_texts = ocr_reader.read_text()
+        annotated_image = ocr_reader.annotate_image()
 
         # Generate AI response
         ai_response = get_ai_response(detected_texts)
 
-        # Annotate the image
-        # annotated_image = get_annotated_image(image_path)
-        # annotated_image_path = "annotated_image.jpg"
-        # cv2.imwrite(annotated_image_path, annotated_image)
-
+        # Return results
         return jsonify({
-            "detected_texts": detected_texts,
-            "ai_response": ai_response,
-            # "annotated_image_path": annotated_image_path
+            'detected_texts': detected_texts,
+            'ai_response': ai_response
         })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
+    except Exception as e:
+        print(f"Server Error: {e}")
+        return jsonify({'error': 'Server encountered an error'}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
