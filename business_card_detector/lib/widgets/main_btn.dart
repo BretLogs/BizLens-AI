@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainBtn extends StatelessWidget {
-  const MainBtn({super.key, required this.btnText});
+  const MainBtn({super.key, required this.btnText, required this.btnFunction});
   final String btnText;
+  final Function() btnFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class MainBtn extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: btnFunction,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: SizedBox(

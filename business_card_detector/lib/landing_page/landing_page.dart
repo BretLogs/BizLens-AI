@@ -1,3 +1,4 @@
+import 'package:business_card_detector/capture_img.dart';
 import 'package:business_card_detector/widgets/main_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,7 +53,15 @@ class LandingPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const MainBtn(btnText: 'GET STARTED')
+                MainBtn(
+                  btnText: 'GET STARTED',
+                  btnFunction: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (BuildContext context) => const CaptureImg()),
+                    );
+                  },
+                )
               ],
             ),
           ),
