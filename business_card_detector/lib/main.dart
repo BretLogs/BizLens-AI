@@ -1,4 +1,4 @@
-import 'package:business_card_detector/capture_img.dart';
+import 'package:business_card_detector/landing_page/landing_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,12 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'BizLens AI',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff023E8A)),
         useMaterial3: true,
       ),
-      home: const ImageUploader(),
+      debugShowCheckedModeBanner: false,
+      home: const LandingPage(),
     );
   }
 }

@@ -17,7 +17,7 @@ class _ImageUploaderState extends State<ImageUploader> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _captureImage() async {
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
@@ -30,7 +30,7 @@ class _ImageUploaderState extends State<ImageUploader> {
     if (_image == null) return;
 
     // Replace with your Flask API endpoint
-    String apiUrl = 'http://127.0.0.1:5000/process-image';
+    String apiUrl = 'http://192.168.1.44:5000/process-image';
 
     // Create multipart request
     http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse(apiUrl));
@@ -39,6 +39,7 @@ class _ImageUploaderState extends State<ImageUploader> {
 
     // Send request
     http.StreamedResponse response = await request.send();
+    print('Here we go....');
 
     if (response.statusCode == 200) {
       http.Response responseBody = await http.Response.fromStream(response);
@@ -52,19 +53,43 @@ class _ImageUploaderState extends State<ImageUploader> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Upload Image')),
+      appBar: AppBar(
+          title: const Text(
+        'BizLens AI',
+        style: TextStyle(fontSize: 16),
+      )),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _image == null ? const Text('No image selected') : Image.file(_image!, height: 200),
-          ElevatedButton(
-            onPressed: _captureImage,
-            child: const Text('Capture Image'),
-          ),
-          ElevatedButton(
-            onPressed: _uploadImage,
-            child: const Text('Upload Image'),
-          ),
+          _image == null
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Container(
+                    height: MediaQuery.sizeOf(context).height / 2,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: const Center(
+                      child: Text('No image selected'),
+                    ),
+                  ),
+                )
+              : Image.file(_image!, height: 200),
+          Row(
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: _captureImage,
+                child: const Text('Select Image'),
+              ),
+              ElevatedButton(
+                onPressed: _uploadImage,
+                child: const Text('Upload Image'),
+              ),
+            ],
+          )
         ],
       ),
     );
