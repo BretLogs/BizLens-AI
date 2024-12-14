@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:business_card_detector/sending_email/sending_email.dart';
+import 'package:business_card_detector/widgets/adjustable_text_field.dart';
 import 'package:business_card_detector/widgets/main_btn.dart';
 import 'package:business_card_detector/widgets/main_text_field.dart';
 import 'package:flutter/material.dart';
@@ -116,24 +118,27 @@ class _CaptureImgState extends State<CaptureImg> {
                         ),
                       ],
                     ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               const MainTextField(labelTxt: 'Company name'),
               MainTextField(labelTxt: 'Full Name', controller: fullName),
               MainTextField(labelTxt: 'email', controller: email),
               MainTextField(labelTxt: 'Phone number', controller: phoneNum),
               MainTextField(labelTxt: 'Website', controller: website),
+              const AdjustableTextField(
+                txt: 'Remarks',
+                maxLines: 3,
+              ),
               const SizedBox(height: 12),
               MainBtn(
                 btnText: 'Proceed',
                 btnFunction: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (BuildContext context) => const CaptureImg()),
+                    MaterialPageRoute(builder: (BuildContext context) => const SendingEmail()),
                   );
                 },
-              )
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
