@@ -21,12 +21,24 @@ class _CaptureImgState extends State<CaptureImg> {
 
   final ImagePicker _picker = ImagePicker();
 
+  String company = '';
+
+  String fullName_text = '';
+  String email_text = '';
+  String phoneNum_text = '';
+  String website_text = '';
+
   Future<void> _captureImage() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
         _image = File(pickedFile.path);
+        company = 'Stappl Inc.';
+        fullName_text = 'Israel F. Breta';
+        email_text = 'ismabreta@gmail.com';
+        phoneNum_text = '+63 998 356 6406';
+        website_text = 'stapplinc.com';
       });
     }
   }
@@ -57,11 +69,11 @@ class _CaptureImgState extends State<CaptureImg> {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController companyName = TextEditingController(text: 'company_name_placeholder');
-    final TextEditingController fullName = TextEditingController(text: 'full_name_placeholder');
-    final TextEditingController email = TextEditingController(text: 'email_placeholder');
-    final TextEditingController phoneNum = TextEditingController(text: 'phone_number_placeholder');
-    final TextEditingController website = TextEditingController(text: 'website_placeholder');
+    final TextEditingController companyName = TextEditingController(text: company);
+    final TextEditingController fullName = TextEditingController(text: fullName_text);
+    final TextEditingController email = TextEditingController(text: email_text);
+    final TextEditingController phoneNum = TextEditingController(text: phoneNum_text);
+    final TextEditingController website = TextEditingController(text: website_text);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -119,14 +131,15 @@ class _CaptureImgState extends State<CaptureImg> {
                       ],
                     ),
               const SizedBox(height: 20),
-              const MainTextField(labelTxt: 'Company name'),
+              MainTextField(labelTxt: 'Company name', controller: companyName),
               MainTextField(labelTxt: 'Full Name', controller: fullName),
               MainTextField(labelTxt: 'email', controller: email),
               MainTextField(labelTxt: 'Phone number', controller: phoneNum),
               MainTextField(labelTxt: 'Website', controller: website),
-              const AdjustableTextField(
-                txt: 'Remarks',
+              AdjustableTextField(
+                txtTitle: 'Remarks',
                 maxLines: 3,
+                message: TextEditingController(text: ''),
               ),
               const SizedBox(height: 12),
               MainBtn(

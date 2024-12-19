@@ -22,8 +22,16 @@ class _SendingEmailState extends State<SendingEmail> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SecondaryTextField(btnText: 'From', btnFunction: () {}),
-              SecondaryTextField(btnText: 'To', btnFunction: () {}),
+              SecondaryTextField(
+                btnText: 'From',
+                btnFunction: () {},
+                controller: TextEditingController(text: 'joshuajoy27@gmail.com'),
+              ),
+              SecondaryTextField(
+                btnText: 'To',
+                btnFunction: () {},
+                controller: TextEditingController(text: 'ismabreta@gmail.com'),
+              ),
               for (int i = 0; i < ccCount; i++)
                 Row(
                   children: <Widget>[
@@ -48,7 +56,24 @@ class _SendingEmailState extends State<SendingEmail> {
                       )
                   ],
                 ),
-              const AdjustableTextField(maxLines: 12, txt: 'email message')
+              AdjustableTextField(
+                maxLines: 12,
+                txtTitle: 'email message',
+                message: TextEditingController(text: '''
+I hope this message finds you well. My name is Joshua Joy Crucis and I am CEO at Stappl Inc. I recently came across your work with and was genuinely impressed by your goals
+
+At Stappl Inc., we specialize in Artificial Intelligence and Software Development. I believe there’s significant potential for collaboration between our organizations, particularly in aiming to be staple of Technology.
+
+I would love the opportunity to discuss how we can work together to benefit our partnership. Please let me know a time that works best for you to connect, or feel free to suggest an alternative.
+
+Thank you for considering this opportunity. I look forward to hearing from you!
+
+Best regards,
+Joshua Joy Crucis
+CEO
+Stappl Inc.
++63 998 356 6406'''),
+              )
             ],
           ),
         ),

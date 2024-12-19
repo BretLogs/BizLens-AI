@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AdjustableTextField extends StatelessWidget {
-  const AdjustableTextField({super.key, required this.maxLines, required this.txt});
+  const AdjustableTextField({super.key, required this.maxLines, required this.txtTitle, required this.message});
   final int maxLines;
-  final String txt;
+  final String txtTitle;
+  final TextEditingController message;
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,9 @@ class AdjustableTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 20),
-        Text(txt),
+        Text(txtTitle),
         TextField(
+          controller: message,
           maxLines: maxLines,
           decoration: const InputDecoration(
             border: OutlineInputBorder(

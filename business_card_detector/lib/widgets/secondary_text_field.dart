@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SecondaryTextField extends StatelessWidget {
-  const SecondaryTextField({super.key, required this.btnText, required this.btnFunction});
+  const SecondaryTextField({super.key, required this.btnText, required this.btnFunction, this.controller});
 
   final String btnText;
   final Function() btnFunction;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class SecondaryTextField extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: TextField(
+              controller: controller,
               decoration: InputDecoration(
                   border: const OutlineInputBorder(
                       borderSide: BorderSide(
